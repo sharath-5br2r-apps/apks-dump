@@ -1,1 +1,1 @@
-Repo to dump parallel patched apks.
+Repo to dump cached apks.
