@@ -3,7 +3,7 @@
   "org.zwanoo.android.speedtest-7.0.7": 1787079089,
   "com.google.android.youtube-20.51.39": 1786773101,
   "com.discord-341.13-Stable": 1787079089,
-  "com.google.android.apps.youtube.music-9.15.51": 1788450943,
+  "com.google.android.apps.youtube.music-9.15.51": 1788450957,
   "com.arjanvlek.oxygenupdater-7.1.0": 1787189579,
   "app.symfonik.music.player-14.1.0": 1787103032,
   "com.monect.portable-8.3.5": 1787189579,
@@ -47,7 +47,7 @@
   "com.amazon.avod.thirdpartyclient-3.0.468": 1787413506,
   "com.amazon.avod.thirdpartyclient-3.0.469": 1787447865,
   "com.adguard.android-4.13.1": 1787425212,
-  "nullsroyale.rel.free-15.535.13": 1787911392,
+  "nullsroyale.rel.free-15.535.13": 1788450957,
   "nullsclash.night.rel-18.400.7": 1788450943,
   "daniillnull.nulls.brawlstars-68.279": 1787902280,
   "com.x8bit.bitwarden-2026.8.0": 1787911442,
@@ -86,7 +86,7 @@
   "com.overlook.android.fing-12.12.0": 1787667635,
   "com.overlook.android.fing-12.13.3": 1787932937,
   "com.microsoft.office.excel-16.0.20228.20090": 1787464936,
-  "com.maxmpz.audioplayer-build-1025-bundle": 1787628365,
+  "com.maxmpz.audioplayer-build-1025-bundle": 1788450957,
   "com.google.android.youtube-21.32.2": 1787461985,
   "com.google.android.inputmethod.latin-18.0.3.954559732-release-arm64-v8a": 1787749648,
   "com.google.android.apps.youtube.music-9.30.52": 1787463305,
@@ -103,6 +103,8 @@
   "ch.protonvpn.android-5.19.72.0": 1787878637,
   "ch.protonvpn.android-5.19.99.0": 1787594976,
   "ch.protonvpn.android-5.20.8.0": 1787858147,
-  "com.mxtech.videoplayer.pro-1.93.4": 1788450943,
-  "pl.solidexplorer2-3.5.20": 1788450943
+  "com.mxtech.videoplayer.pro-1.93.4": 1788450957,
+  "pl.solidexplorer2-3.5.20": 1788450943,
+  "com.soundcloud.android-2026.08.26-release": 1788450957,
+  "cn.wps.moffice_eng-18.24": 1788450957
 }
