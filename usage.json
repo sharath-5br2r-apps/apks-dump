@@ -1,6 +1,6 @@
 {
   "in.amazon.mShop.android.shopping-32.15.0.300": 1787189579,
-  "org.zwanoo.android.speedtest-7.0.7": 1787079089,
+  "org.zwanoo.android.speedtest-7.0.7": 1788455011,
   "com.google.android.youtube-20.51.39": 1786773101,
   "com.discord-341.13-Stable": 1787079089,
   "com.google.android.apps.youtube.music-9.15.51": 1788450957,
@@ -90,14 +90,14 @@
   "com.google.android.youtube-21.32.2": 1787461985,
   "com.google.android.inputmethod.latin-18.0.3.954559732-release-arm64-v8a": 1787749648,
   "com.google.android.apps.youtube.music-9.30.52": 1787463305,
-  "com.google.android.apps.youtube.music-9.34.52": 1788455007,
+  "com.google.android.apps.youtube.music-9.34.52": 1788455011,
   "com.github.android-1.271.1": 1787627291,
   "com.github.android-1.274.0": 1787992057,
   "com.fingersoft.hillclimb-1.70.0": 1787647045,
   "com.discord-342.16": 1787690490,
   "com.amazon.avod.thirdpartyclient-3.0.470.357": 1787818804,
   "com.adobe.reader-26.7.0.47169": 1787669447,
-  "com.adguard.android-4.13.2": 1787891540,
+  "com.adguard.android-4.13.2": 1788455011,
   "com.adguard.android-4.14.68": 1788455007,
   "ch.protonvpn.android-5.19.16.0": 1787667675,
   "ch.protonvpn.android-5.19.72.0": 1787878637,
@@ -107,5 +107,5 @@
   "pl.solidexplorer2-3.5.20": 1788450943,
   "com.soundcloud.android-2026.08.26-release": 1788450957,
   "cn.wps.moffice_eng-18.24": 1788450957,
-  "com.amazon.avod.thirdpartyclient-3.0.470.1047": 1788455007
+  "com.amazon.avod.thirdpartyclient-3.0.470.1047": 1788455011
 }
