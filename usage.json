@@ -9,7 +9,7 @@
   "com.xodo.pdf.reader-11.0.0": 1788745777,
   "com.nekki.vector-2.10.0": 1788713258,
   "com.maxmpz.audioplayer-build-1025-bundle-play": 1788638606,
-  "com.intsig.camscanner-7.20.0.2606230000": 1788645781,
+  "com.intsig.camscanner-7.20.0.2606230000": 1788745782,
   "com.halfbrick.jetpackjoyride-1.104.1": 1788713189,
   "com.fingersoft.hillclimb-1.71.1": 1788713227,
   "nullsroyale.rel.free-15.535.13": 1788638560,
@@ -37,7 +37,7 @@
   "ch.protonvpn.android-5.20.21.0": 1788638694,
   "com.cv.docscanner-6.9.9": 1788638611,
   "ginlemon.flowerfree-6.6build016": 1788638799,
-  "com.bambuna.podcastaddict-2026.10.1": 1788745777,
+  "com.bambuna.podcastaddict-2026.10.1": 1788745782,
   "com.backdrops.wallpapers-6.1.2": 1788638606,
   "videoeditor.videorecorder.screenrecorder-2.5.4.3": 1788745600,
   "com.eyecon.global-4.2026.04.05.1300": 1788638247,
@@ -69,7 +69,7 @@
   "com.google.android.inputmethod.latin-18.0.3.954559732-release": 1788713398,
   "com.amazon.avod.thirdpartyclient-3.0.471.447": 1788745777,
   "ginlemon.flowerfree-6.5build055": 1788745428,
-  "ginlemon.flowerfree-016": 1788745777,
+  "ginlemon.flowerfree-016": 1788745782,
   "io.appground.blek-6.23.1-257": 1788620357,
   "com.arlosoft.macrodroid-5.66.9-896600011": 1788621062,
   "com.instagram.android-439.0.0.37.89-384510827": 1788620448,
@@ -88,7 +88,9 @@
   "com.google.android.apps.youtube.music-9.35.54": 1788713258,
   "com.google.android.youtube-21.36.45": 1788713398,
   "com.google.android.youtube-21.07.247": 1788713258,
-  "com.teslacoilsw.launcher-89000(8.9.0)": 1788724228,
+  "com.teslacoilsw.launcher-89000(8.9.0)": 1788745782,
   "com.wallpaperscraft.wallpaper-3.65.0": 1788745428,
-  "com.brave.browser-1.94.121": 1788745600
+  "com.brave.browser-1.94.121": 1788745600,
+  "cz.ackee.ventusky-55.1": 1788745782,
+  "com.github.android-1.273.0": 1788745782
 }
