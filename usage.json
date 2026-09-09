@@ -86,7 +86,7 @@
   "com.brave.browser_nightly-1.97.8": 1788676944,
   "com.mediocre.smashhit-1.5.14": 1788958912,
   "com.google.android.apps.youtube.music-9.35.54": 1788997615,
-  "com.google.android.youtube-21.36.45": 1788975398,
+  "com.google.android.youtube-21.36.45": 1788997905,
   "com.google.android.youtube-21.07.247": 1788889896,
   "com.teslacoilsw.launcher-89000(8.9.0)": 1788804416,
   "com.wallpaperscraft.wallpaper-3.65.0": 1788804598,
@@ -142,5 +142,6 @@
   "com.cricbuzz.android-16.09.00": 1788959612,
   "com.brave.browser_nightly-1.97.20": 1788985300,
   "com.amazon.dee.app-2.2.709433.0": 1788985260,
-  "com.nis.app-6.12.35": 1788985227
+  "com.nis.app-6.12.35": 1788985227,
+  "cz.ackee.ventusky-56.0": 1788997905
 }
