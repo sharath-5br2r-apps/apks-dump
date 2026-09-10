@@ -85,7 +85,7 @@
   "com.brave.browser_beta-1.96.46": 1788676934,
   "com.brave.browser_nightly-1.97.8": 1788676944,
   "com.mediocre.smashhit-1.5.14": 1788958912,
-  "com.google.android.apps.youtube.music-9.35.54": 1788998133,
+  "com.google.android.apps.youtube.music-9.35.54": 1789083654,
   "com.google.android.youtube-21.36.45": 1788997905,
   "com.google.android.youtube-21.07.247": 1788889896,
   "com.teslacoilsw.launcher-89000(8.9.0)": 1788804416,
@@ -150,5 +150,6 @@
   "com.brave.browser_nightly-1.97.23": 1789061017,
   "com.twitter.android-12.25.0": 1789061640,
   "com.adguard.android-4.14.0": 1789061504,
-  "com.brave.browser_nightly-1.97.24": 1789071617
+  "com.brave.browser_nightly-1.97.24": 1789071617,
+  "com.brave.browser_nightly-1.97.25": 1789083654
 }
