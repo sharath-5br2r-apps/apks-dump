@@ -106,7 +106,7 @@
   "com.discord-345.9-Stable": 1789926210,
   "com.amazon.dee.app-2.2.711118.0": 1789994835,
   "com.truecaller-26.10.6": 1789995464,
-  "com.google.android.youtube-21.38.123": 1790116816,
+  "com.google.android.youtube-21.38.123": 1790117054,
   "com.touchtype.swiftkey-9.13.16.5": 1789848007,
   "com.google.android.apps.youtube.music-9.37.54": 1790116570,
   "eu.darken.sdmse-2.0.4-rc0": 1789995345,
@@ -148,5 +148,6 @@
   "com.brave.browser_nightly-1.98.16": 1790022922,
   "ch.protonvpn.android-5.20.39.0": 1790022333,
   "com.amazon.avod.thirdpartyclient-3.0.472": 1790037389,
-  "com.brave.browser_nightly-1.98.17": 1790060016
+  "com.brave.browser_nightly-1.98.17": 1790060016,
+  "com.brave.browser_beta-1.97.45": 1790117054
 }
