@@ -1,8 +1,8 @@
 # nullcpy/apks
 
-Central stock APK cache repository for [**RVB (ReVanced Builder)**](https://github.com/nullcpy/rvb).
+Central stock APK cache repository for [**Builder**](https://github.com/sharath-5br2r-apps/patched-apks-builder-2nd).
 
-This repository stores upstream stock APKs across tagged GitHub Releases (one release per package name). RVB checks this cache before attempting web scraping, ensuring ultra-fast, rate-limit-free builds on CI runners and local environments.
+This repository stores upstream stock APKs across tagged GitHub Releases (one release per package name). Builder checks this cache before attempting web scraping, ensuring ultra-fast, rate-limit-free builds on CI runners and local environments.
 
 ---
 
@@ -10,7 +10,7 @@ This repository stores upstream stock APKs across tagged GitHub Releases (one re
 
 Uploading APKs requires write (collaborator) access to this repository.
 
-Currently Contributions arent open yet, If you want to try to contribute, try using Github Discussions
+Currently Contributions arent open yet, If you want to try to contribute, try using [Github Discussions](https://github.com/sharath-5br2r-apps)
 
 
 ---
@@ -87,11 +87,11 @@ or with a target version code:
    ```powershell
    .\upload_apks.ps1
    ``` 
-  
-  For macOS/Linux/Termux
-  ```sh
-  ./upload_apks.sh
-  ```
+   
+   For macOS/Linux/Termux
+   ```sh
+   ./upload_apks.sh
+   ```
 
 **That's it!** The script automatically:
 1. Inspects the APK filename and extracts the package name (e.g. `com.facebook.katana`).
@@ -119,4 +119,4 @@ For macOS/Linux/Termux
 
 ## 🧹 Maintenance & Retention
 
-A weekly GitHub Actions workflow (running every Sunday at midnight) (`cleanup-apks.py`) monitors `usage.json` and evicts older APK variants that have not been requested by RVB within 30 days, keeping the cache lean and within GitHub storage quotas.
+A weekly GitHub Actions workflow (running every Sunday at midnight) (`cleanup-apks.py`) monitors `usage.json` and evicts older APK variants that have not been requested by Builder within 30 days, keeping the cache lean and within GitHub storage quotas.

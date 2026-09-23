@@ -3,17 +3,17 @@
 # Default parameters
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 APK_FOLDER="$SCRIPT_DIR"
-REPO="nullcpy/apks"
+REPO="sharath-5br2r-apps/apks-dump"
 
 # Parse arguments (supports positional and named flags like -ApkFolder / --apk-folder / -Repo / --repo)
 positional_index=0
 while [ $# -gt 0 ]; do
     case "$1" in
-        -ApkFolder|--apk-folder|-folder|-f)
+        -ApkFolder)
             APK_FOLDER="$2"
             shift 2
             ;;
-        -Repo|--repo|-r)
+        -Repo)
             REPO="$2"
             shift 2
             ;;
