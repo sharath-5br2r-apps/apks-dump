@@ -108,7 +108,7 @@
   "com.truecaller-26.10.6": 1790184098,
   "com.google.android.youtube-21.38.123": 1790184387,
   "com.touchtype.swiftkey-9.13.16.5": 1789848007,
-  "com.google.android.apps.youtube.music-9.37.54": 1790183887,
+  "com.google.android.apps.youtube.music-9.37.54": 1790191487,
   "eu.darken.sdmse-2.0.4-rc0": 1789995345,
   "com.github.android-1.271.1": 1789861249,
   "com.twitter.android-12.25.2-prod.01": 1789848007,
@@ -159,5 +159,6 @@
   "com.twitter.android-12.28.0-prod.01": 1790184325,
   "com.pinterest-14.37.0": 1790184098,
   "com.adguard.android-4.14.0": 1790184118,
-  "com.ss.android.ugc.trill-47.0.3": 1790184814
+  "com.ss.android.ugc.trill-47.0.3": 1790184814,
+  "com.brave.browser_nightly-1.98.24": 1790191487
 }
