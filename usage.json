@@ -52,7 +52,7 @@
   "com.microsoft.office.excel-16.0.20228.20090-2006247667": 1788638549,
   "com.adguard.android-4.14.68-10330100": 1788620739,
   "ch.protonvpn.android-5.19.78.0-605197800": 1788620281,
-  "com.mediocre.smashhit-1.5.14": 1790501878,
+  "com.mediocre.smashhit-1.5.14": 1790502136,
   "com.twitter.android-12.19.1-release.0": 1790366929,
   "com.chess-4.10.0": 1790366515,
   "com.llamalab.automate-1.51.1": 1790366614,
@@ -90,7 +90,7 @@
   "daniillnull.nulls.brawlstars-latest_bs": 1789853651,
   "com.brave.browser_nightly-1.98.11": 1789850953,
   "nullsclash.night.rel-latest_coc": 1789853548,
-  "com.xodo.pdf.reader-11.2.0": 1790366542,
+  "com.xodo.pdf.reader-11.2.0": 1790502136,
   "ginlemon.flowerfree-6.6build020": 1790366929,
   "com.amazon.avod.thirdpartyclient-3.0.471": 1790227135,
   "nullsroyale.rel.free-latest_cr": 1789850953,
@@ -175,5 +175,6 @@
   "com.google.android.youtube-21.39.522": 1790413616,
   "com.adobe.reader-26.8.4": 1790413962,
   "com.amazon.mShop.android.shopping-32.18.0.100": 1790414203,
-  "com.zhiliaoapp.musically-47.1.3": 1790474089
+  "com.zhiliaoapp.musically-47.1.3": 1790474089,
+  "com.xodo.pdf.reader-11.3.0": 1790502136
 }
