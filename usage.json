@@ -1,6 +1,6 @@
 {
   "app.symfonik.music.player-14.1.0": 1791165409,
-  "bitpit.launcher-1.16.28": 1791165930,
+  "bitpit.launcher-1.16.28": 1791324084,
   "ch.protonvpn.android-5.19.72.0": 1791165930,
   "ch.protonvpn.android-5.19.78.0": 1791164844,
   "ch.protonvpn.android-5.19.78.0-605197800": 1788620281,
@@ -37,7 +37,7 @@
   "com.arlosoft.macrodroid-5.67.8": 1791165409,
   "com.backdrops.wallpapers-6.1.2": 1791165600,
   "com.bambuna.podcastaddict-2026.10.1": 1791323769,
-  "com.bambuna.podcastaddict-2026.12": 1791165685,
+  "com.bambuna.podcastaddict-2026.12": 1791324084,
   "com.brave.browser-1.95.101": 1789926723,
   "com.brave.browser-1.95.104": 1790281494,
   "com.brave.browser-1.96.59": 1790753778,
@@ -100,8 +100,9 @@
   "com.github.android-1.276.0": 1790227623,
   "com.github.android-1.277.0": 1790624071,
   "com.github.android-1.278.0": 1791323769,
+  "com.github.android-1.279.0": 1791324084,
   "com.goodreads-2.75.0Build3": 1791323769,
-  "com.goodreads-2.76.0Build0": 1791165676,
+  "com.goodreads-2.76.0Build0": 1791324084,
   "com.google.android.apps.youtube.music-9.15.51": 1791166513,
   "com.google.android.apps.youtube.music-9.36.50": 1789995352,
   "com.google.android.apps.youtube.music-9.37.54": 1790918287,
@@ -163,7 +164,7 @@
   "com.teslacoilsw.launcher-8.9.2)": 1791165671,
   "com.teslacoilsw.launcher-8.9.2.": 1789860700,
   "com.teslacoilsw.launcher-8.9.3)": 1791323836,
-  "com.teslacoilsw.launcher-88600": 1791165741,
+  "com.teslacoilsw.launcher-88600": 1791324084,
   "com.touchtype.swiftkey-9.13.13.5": 1791165741,
   "com.touchtype.swiftkey-9.13.16.5": 1789848007,
   "com.truecaller-26.10.6": 1791165588,
@@ -223,8 +224,8 @@
   "org.zwanoo.android.speedtest-7.1.1": 1791165671,
   "pl.solidexplorer2-3.5.20": 1790366614,
   "pl.solidexplorer2-3.6.0": 1790037066,
-  "pl.solidexplorer2-3.6.1": 1791323769,
+  "pl.solidexplorer2-3.6.1": 1791324084,
   "tv.twitch.android.app-30.7.2": 1791164844,
   "videoeditor.videorecorder.screenrecorder-2.5.1.1": 1791323769,
-  "videoeditor.videorecorder.screenrecorder-2.5.4.4": 1791166308
+  "videoeditor.videorecorder.screenrecorder-2.5.4.4": 1791324084
 }
