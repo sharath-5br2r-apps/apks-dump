@@ -1,6 +1,6 @@
-# sharath-5br2r-apps/apks-dump
+# sharath-5br2r/apks-dump
 
-Central stock APK cache repository for [**Builder**](https://github.com/sharath-5br2r-apps/patched-apks-builder-2nd).
+Central stock APK cache repository for [**Builder**](https://github.com/sharath-5br2r/apps).
 
 This repository stores upstream stock APKs across tagged GitHub Releases (one release per package name). Builder checks this cache before attempting web scraping, ensuring ultra-fast, rate-limit-free builds on CI runners and local environments.
 
@@ -10,8 +10,15 @@ This repository stores upstream stock APKs across tagged GitHub Releases (one re
 
 Uploading APKs requires write (collaborator) access to this repository.
 
-Currently Contributions arent open yet, If you want to try to contribute, try using [Github Discussions](https://github.com/sharath-5br2r-apps)
+If you want to contribute APKs to help maintain the cache:
+👉 **Contact here to get added as a contributor:** [**https://t.me/rvb27/306**](https://t.me/rvb27/306)
 
+Once added, follow the quick instructions below to submit APKs painlessly!
+
+> [!NOTE]
+> Uploading works on **Windows, Linux and macOS** - the repository ships three
+> equivalent scripts (`upload_apks.ps1`, `upload_apks.sh`, `upload_apks.py`).
+> Use whichever fits your system.
 
 ---
 
@@ -21,21 +28,15 @@ Currently Contributions arent open yet, If you want to try to contribute, try us
 
 You only need the **GitHub CLI (`gh`)** installed and authenticated:
 
-- **Install `gh``
+| OS | Install `gh` |
+| :--- | :--- |
+| **Windows** | `winget install GitHub.cli` *(or via Scoop: `scoop install gh`)* |
+| **macOS** | `brew install gh` |
+| **Linux (Debian/Ubuntu)** | `sudo apt install gh` |
+| **Linux (other distros)** | See https://github.com/cli/cli#installation |
 
-  For Windows:**
-  ```powershell
-  winget install GitHub.cli
-  ```
-  *(or via Scoop: `scoop install gh`)*
-
-  For Termux:
-  ```sh
-  pkg install gh
-  ```
-
-- **Authenticate:**
-  ```powershell
+- **Authenticate** (identical on every OS):
+  ```bash
   gh auth login
   ```
   *(Select `GitHub.com` -> `HTTPS` -> Log in with a web browser)*
@@ -73,24 +74,51 @@ or with a target version code:
 
 ### 3. Uploading (Painless & Automated)
 
-1. **Clone the repository** (or pull the latest):
-   ```sh
-   git clone https://github.com/nullcpy/apks.git
-   cd apks
+Pick the script that matches your system - all three behave identically:
+
+| Script | Runs on | Requires |
+| :--- | :--- | :--- |
+| `upload_apks.ps1` | Windows | PowerShell 5+ |
+| `upload_apks.sh` | Linux, macOS, Git Bash | Bash (also works on the stock macOS bash 3.2) |
+| `upload_apks.py` | Any OS | Python 3.8+ (no extra packages) |
+
+1. **Get the repository** - either clone it or download a ZIP:
+
+   **Option A - Git clone** (recommended, refresh later with `git pull`):
+   ```bash
+   git clone https://github.com/sharath-5br2r/apks-dump.git
+   cd apks-dump
    ```
 
-2. **Drop your renamed APK file(s)** directly into the `apks` folder.
+   **Option B - ZIP download** (no Git needed): download
+   [main.zip](https://github.com/sharath-5br2r/apks-dump/archive/refs/heads/main.zip)
+   (or **Code -> Download ZIP** on the repo page), extract it, then enter the
+   folder it creates - GitHub names it `apks-dump-main`:
+   ```bash
+   cd apks-dump-main
+   ```
+   A ZIP is a one-off snapshot, so re-download it whenever you want the latest
+   scripts; uploading works either way because the scripts talk to GitHub
+   through `gh` rather than through your local copy of the repo.
+
+2. **Drop your renamed APK file(s)** directly into that repository folder (the
+   one containing the upload scripts).
 
 3. **Run the upload script:**
 
-   For Windows
+   **Windows (PowerShell):**
    ```powershell
    .\upload_apks.ps1
-   ``` 
-   
-   For macOS/Linux/Termux
-   ```sh
-   ./upload_apks.sh
+   ```
+
+   **Linux / macOS (Bash):**
+   ```bash
+   bash upload_apks.sh
+   ```
+
+   **Any system (Python):**
+   ```bash
+   python3 upload_apks.py    # Windows: python upload_apks.py
    ```
 
 **That's it!** The script automatically:
@@ -103,20 +131,49 @@ or with a target version code:
 
 ## 🛠️ Advanced Usage
 
-If you prefer keeping your APKs in a separate download folder rather than moving them into the repo, specify `-ApkFolder`:
+If you prefer keeping your APKs in a separate download folder rather than moving them into the repo, point the script at that folder:
 
-For Windows
 ```powershell
 .\upload_apks.ps1 -ApkFolder "C:\Users\YourName\Downloads"
 ```
 
-For macOS/Linux/Termux
-```sh
-./upload_apks.sh -ApkFolder "/home/YourName/Downloads"
+```bash
+bash upload_apks.sh --apk-folder ~/Downloads
+python3 upload_apks.py --apk-folder ~/Downloads
 ```
+
+The `sh` and `py` scripts also accept the folder as a plain argument:
+
+```bash
+bash upload_apks.sh ~/Downloads
+python3 upload_apks.py ~/Downloads
+```
+
+To upload to a different repository (e.g. your own fork for testing), pass `-Repo` (PowerShell) or `--repo` / `-r` (bash, Python):
+
+```bash
+bash upload_apks.sh --repo myuser/apks
+```
+
+Run `bash upload_apks.sh --help` or `python3 upload_apks.py --help` for the full option list.
+
+> [!WARNING]
+> The scripts delete each APK from the scanned folder right after a successful
+> upload. Point them at a folder you are fine with being emptied.
 
 ---
 
 ## 🧹 Maintenance & Retention
 
 A weekly GitHub Actions workflow (running every Sunday at midnight) (`cleanup-apks.py`) monitors `usage.json` and evicts older APK variants that have not been requested by Builder within 30 days, keeping the cache lean and within GitHub storage quotas.
+
+`usage.json` is machine-managed - both workflows that write it keep its keys sorted so
+their commits stay readable. Do not add or reorder entries by hand: an upload you made
+through the script is indexed automatically at its upload time, and an entry whose asset
+no longer exists is pruned on the next run.
+
+> [!NOTE]
+> The full cache contract - how Builder reads and writes this repository, the retention
+> rules, the `usage.json` key format and file ordering, plus a debugging checklist - is
+> documented in the builder repo:
+> [**sharath-5br2r/apps → docs/cache-repo.md**](https://github.com/sharath-5br2r/apps/blob/main/docs/cache-repo.md).

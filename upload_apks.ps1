@@ -3,7 +3,7 @@ param (
     [string]$ApkFolder = $PSScriptRoot,
 
     [Parameter(Mandatory=$false)]
-    [string]$Repo = "sharath-5br2r-apps/apks-dump"
+    [string]$Repo = "sharath-5br2r/apks-dump"
 )
 
 # Ensure gh CLI is installed

@@ -1,154 +1,201 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
+#
+# upload_apks.sh - Bash equivalent of upload_apks.ps1 (Linux / macOS).
+#
+# Uploads .apk / .apkm / .xapk files into the GitHub Releases cache of the
+# RVB stock-APK repo (one release per Android package name) and deletes the
+# local file after a successful upload. Requires the GitHub CLI (`gh`).
+#
+# Works with the stock macOS bash 3.2 (no arrays, mapfile or globstar).
 
-# Default parameters
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-APK_FOLDER="$SCRIPT_DIR"
-REPO="sharath-5br2r-apps/apks-dump"
+set -euo pipefail
 
-# Parse arguments (supports positional and named flags like -ApkFolder / --apk-folder / -Repo / --repo)
-positional_index=0
-while [ $# -gt 0 ]; do
-    case "$1" in
-        -ApkFolder)
-            APK_FOLDER="$2"
-            shift 2
-            ;;
-        -Repo)
-            REPO="$2"
-            shift 2
-            ;;
-        -*)
-            printf "\033[0;31m[-] Unknown option: %s\033[0m\n" "$1"
-            exit 1
-            ;;
-        *)
-            if [ "$positional_index" -eq 0 ]; then
-                APK_FOLDER="$1"
-            elif [ "$positional_index" -eq 1 ]; then
-                REPO="$1"
-            fi
-            positional_index=$((positional_index + 1))
-            shift
-            ;;
-    esac
-done
+# ==========================================
+# CONFIGURATION (same defaults as upload_apks.ps1)
+# ==========================================
+REPO="sharath-5br2r/apks-dump"
+APK_FOLDER=""
+# ==========================================
 
-# ANSI color codes
+SCRIPT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
+
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 CYAN='\033[0;36m'
 GRAY='\033[0;90m'
-NC='\033[0m' # No Color
+RESET='\033[0m'
 
-# Ensure gh CLI is installed
-if ! command -v gh >/dev/null 2>&1; then
-    printf "${RED}[-] Error: GitHub CLI ('gh') is not installed or not in PATH.${NC}\n"
-    printf "${YELLOW}    Install it via your package manager or from https://cli.github.com${NC}\n"
-    exit 1
+# Drop the colors when output is piped or written to a log
+if [ ! -t 1 ]; then
+    RED='' GREEN='' YELLOW='' CYAN='' GRAY='' RESET=''
 fi
 
-# Ensure gh CLI is authenticated
-if ! gh auth status >/dev/null 2>&1; then
-    printf "${RED}[-] Error: GitHub CLI is not authenticated.${NC}\n"
-    printf "${YELLOW}    Please run 'gh auth login' to log into your GitHub account.${NC}\n"
-    exit 1
-fi
+plain()   { printf '%b\n' "$*"; }
+red()     { printf '%b\n' "${RED}$*${RESET}"; }
+green()   { printf '%b\n' "${GREEN}$*${RESET}"; }
+yellow()  { printf '%b\n' "${YELLOW}$*${RESET}"; }
+cyan()    { printf '%b\n' "${CYAN}$*${RESET}"; }
+gray()    { printf '%b\n' "${GRAY}$*${RESET}"; }
 
-# Ensure target folder exists
-if [ ! -d "$APK_FOLDER" ]; then
-    printf "${RED}[-] Error: Folder '%s' does not exist.${NC}\n" "$APK_FOLDER"
-    exit 1
-fi
+usage() {
+    cat <<'EOF'
+Usage: upload_apks.sh [options] [<apk-folder>]
 
-ORIGINAL_PWD="$(pwd)"
-cd "$APK_FOLDER" || exit 1
+Uploads every *.apk / *.apkm / *.xapk found under <apk-folder> (recursive)
+into GitHub Releases of the cache repo, one release per Android package
+name. The local file is deleted after a successful upload.
 
-# Cleanup function to restore directory on exit
-cleanup() {
-    cd "$ORIGINAL_PWD" || true
+Options:
+  -d, --apk-folder <path>   Folder to scan for APKs (default: folder of this script)
+  -r, --repo <owner/name>   Target repository (default: sharath-5br2r/apks-dump)
+  -h, --help                Show this help and exit
+
+Requires: gh (GitHub CLI), authenticated via `gh auth login`.
+EOF
 }
-trap cleanup EXIT INT TERM
 
-# Find all .apk, .apkm, and .xapk files
-# Using find to locate files matching the patterns
-MATCHING_FILES=$(find . -type f \( -name "*.apk" -o -name "*.apkm" -o -name "*.xapk" \))
+# ------------------------------------------
+# Argument parsing
+# ------------------------------------------
+while [ $# -gt 0 ]; do
+    case "$1" in
+        -d|--apk-folder|--apkfolder)
+            [ $# -ge 2 ] || { red "[-] Error: $1 requires a value."; exit 1; }
+            APK_FOLDER="$2"; shift 2 ;;
+        --apk-folder=*|--apkfolder=*)
+            APK_FOLDER="${1#*=}"; shift ;;
+        -r|--repo)
+            [ $# -ge 2 ] || { red "[-] Error: $1 requires a value."; exit 1; }
+            REPO="$2"; shift 2 ;;
+        --repo=*)
+            REPO="${1#*=}"; shift ;;
+        -h|--help)
+            usage; exit 0 ;;
+        -*)
+            red "[-] Error: unknown option '$1'."
+            usage
+            exit 1 ;;
+        *)
+            APK_FOLDER="$1"; shift ;;
+    esac
+done
 
-if [ -z "$MATCHING_FILES" ]; then
-    printf "${YELLOW}[!] No .apk, .apkm, or .xapk files found in '%s'.${NC}\n" "$APK_FOLDER"
+# Default: the folder this script lives in (mirrors $PSScriptRoot)
+[ -n "$APK_FOLDER" ] || APK_FOLDER="$SCRIPT_DIR"
+
+# ------------------------------------------
+# Preconditions
+# ------------------------------------------
+if ! command -v gh >/dev/null 2>&1; then
+    red "[-] Error: GitHub CLI ('gh') is not installed or not in PATH."
+    yellow "    Install it via 'brew install gh' (macOS), 'apt install gh' (Linux)"
+    yellow "    or from https://cli.github.com"
+    exit 1
+fi
+
+if ! gh auth status >/dev/null 2>&1; then
+    red "[-] Error: GitHub CLI is not authenticated."
+    yellow "    Please run 'gh auth login' to log into your GitHub account."
+    exit 1
+fi
+
+if [ ! -d "$APK_FOLDER" ]; then
+    red "[-] Error: Folder '$APK_FOLDER' does not exist."
+    exit 1
+fi
+
+# Resolve to an absolute path; on Git Bash prefer the native Windows form so
+# that gh.exe receives a path it can open ('pwd -W' is unknown on Linux/macOS).
+resolved="$(CDPATH= cd -- "$APK_FOLDER" && pwd -W 2>/dev/null || true)"
+[ -n "$resolved" ] || resolved="$(CDPATH= cd -- "$APK_FOLDER" && pwd)"
+APK_FOLDER="$resolved"
+
+# ------------------------------------------
+# Collect APKs (recursive, case-insensitive)
+# ------------------------------------------
+FOUND_LIST="$(mktemp)"
+trap 'rm -f "$FOUND_LIST"' EXIT
+
+find "$APK_FOLDER" -type f \
+    \( -iname '*.apk' -o -iname '*.apkm' -o -iname '*.xapk' \) -print \
+    | LC_ALL=C sort -f > "$FOUND_LIST"
+
+count="$(grep -c . "$FOUND_LIST" || true)"
+if [ "$count" -eq 0 ]; then
+    yellow "[!] No .apk, .apkm, or .xapk files found in '$APK_FOLDER'."
     exit 0
 fi
 
-TOTAL_COUNT=$(printf "%s\n" "$MATCHING_FILES" | grep -c -v '^$')
-printf "${GREEN}[+] Found %s APK(s) to process for repository '%s'.${NC}\n" "$TOTAL_COUNT" "$REPO"
+green "[+] Found $count APK(s) to process for repository '$REPO'."
 
-# Process each file line-by-line
-printf "%s\n" "$MATCHING_FILES" | while IFS= read -r apk_path; do
-    [ -z "$apk_path" ] && continue
+# ------------------------------------------
+# Process each file
+# ------------------------------------------
+failed=0
 
-    file_name="$(basename "$apk_path")"
+while IFS= read -r file; do
+    [ -n "$file" ] || continue
+    name="${file##*/}"
 
-    # Ensure proper naming format: <package_name>-<version>[-<version_code>]-<arch>.<ext>
-    case "$file_name" in
-        -*|*[!-]*"-")
-            # If starts with '-' or invalid
-            ;;
-    esac
-
-    case "$file_name" in
+    # Ensure proper naming format: <pkg_name>-<version>[-<version_code>]-<arch>.<ext>
+    # -> the name must contain a '-' and must not start with one (patterns are
+    #    matched in order, so the leading '-' case has to come first)
+    case "$name" in
+        -*)
+            yellow "[-] Skipping '$name': file name does not follow '<pkg_name>-<version>...<ext>' convention."
+            continue ;;
         *-*)
-            case "$file_name" in
-                -*)
-                    printf "${YELLOW}[-] Skipping '%s': file name does not follow '<pkg_name>-<version>...<ext>' convention.${NC}\n" "$file_name"
-                    continue
-                    ;;
-            esac
             ;;
         *)
-            printf "${YELLOW}[-] Skipping '%s': file name does not follow '<pkg_name>-<version>...<ext>' convention.${NC}\n" "$file_name"
-            continue
-            ;;
+            yellow "[-] Skipping '$name': file name does not follow '<pkg_name>-<version>...<ext>' convention."
+            continue ;;
     esac
 
     # Extract package name (everything before the first '-')
-    package_name="${file_name%%-*}"
+    package_name="${name%%-*}"
 
     case "$package_name" in
-        *.*)
-            ;;
+        *.*) ;;
         *)
-            printf "${YELLOW}[-] Skipping '%s': '%s' does not look like a valid Android package name (e.g. com.example.app).${NC}\n" "$file_name" "$package_name"
-            continue
-            ;;
+            yellow "[-] Skipping '$name': '$package_name' does not look like a valid Android package name (e.g. com.example.app)."
+            continue ;;
     esac
 
-    printf "=================================================\n"
-    printf "[*] Processing: %s\n" "$file_name"
-    printf "[*] Package / Tag: %s\n" "$package_name"
+    plain "================================================="
+    plain "[*] Processing: $name"
+    plain "[*] Package / Tag: $package_name"
 
     # Check if the release (tag) already exists on GitHub
     if gh release view "$package_name" --repo "$REPO" >/dev/null 2>&1; then
-        printf "${CYAN}[+] Release '%s' exists. Uploading asset...${NC}\n" "$package_name"
-        # --clobber allows overwriting if the same exact file name already exists in the release
-        if gh release upload "$package_name" "$apk_path" --repo "$REPO" --clobber; then
-            printf "${GREEN}[+] Successfully uploaded %s to '%s'.${NC}\n" "$file_name" "$package_name"
-            rm -f "$apk_path"
-            printf "${GRAY}[*] Removed %s from local folder.${NC}\n" "$file_name"
+        cyan "[+] Release '$package_name' exists. Uploading asset..."
+        # --clobber allows overwriting if the same exact file name already exists
+        if gh release upload "$package_name" "$file" --repo "$REPO" --clobber; then
+            green "[+] Successfully uploaded $name to '$package_name'."
+            rm -f "$file"
+            gray "[*] Removed $name from local folder."
         else
-            printf "${RED}[-] Failed to upload %s to '%s'.${NC}\n" "$file_name" "$package_name"
+            red "[-] Failed to upload $name to '$package_name'."
+            failed=$((failed + 1))
         fi
     else
-        printf "${YELLOW}[+] Release '%s' does not exist. Creating and uploading...${NC}\n" "$package_name"
+        yellow "[+] Release '$package_name' does not exist. Creating and uploading..."
         # Create a new release and upload the file at the same time
-        if gh release create "$package_name" "$apk_path" --repo "$REPO" --title "$package_name" --notes " "; then
-            printf "${GREEN}[+] Successfully created release '%s' and uploaded %s.${NC}\n" "$package_name" "$file_name"
-            rm -f "$apk_path"
-            printf "${GRAY}[*] Removed %s from local folder.${NC}\n" "$file_name"
+        if gh release create "$package_name" "$file" --repo "$REPO" --title "$package_name" --notes " "; then
+            green "[+] Successfully created release '$package_name' and uploaded $name."
+            rm -f "$file"
+            gray "[*] Removed $name from local folder."
         else
-            printf "${RED}[-] Failed to create release '%s'.${NC}\n" "$package_name"
+            red "[-] Failed to create release '$package_name'."
+            failed=$((failed + 1))
         fi
     fi
-done
+done < "$FOUND_LIST"
 
-printf "=================================================\n"
-printf "${GREEN}[+] All done!${NC}\n"
+plain "================================================="
+if [ "$failed" -eq 0 ]; then
+    green "[+] All done!"
+    exit 0
+fi
+yellow "[!] Finished with $failed failure(s) - see the messages above."
+exit 1
